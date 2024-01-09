@@ -4,6 +4,8 @@ import SpriteView from './SpriteView'
 import TextView from './TextView'
 import { SceneMoment, SceneSprite, SceneSpritePosition } from './scene-engine'
 
+import classes from './moment-view.module.css'
+
 interface MomentViewProps {
   moment: SceneMoment
 }
@@ -23,14 +25,23 @@ export default function MomentView(props: MomentViewProps) {
   const spriteLeft = spritesOnSide(moment, SceneSpritePosition.CHARACTER_LEFT)
   const spriteRight = spritesOnSide(moment, SceneSpritePosition.CHARACTER_RIGHT)
 
+  const style = moment.background
+    ? { backgroundImage: `url(${moment.background})` }
+    : {}
+
   return (
-    <div className="columns">
+    <div
+      className={`columns is-gapless ${classes.backgroundImage}`}
+      style={style}
+    >
       <div className="column is-4">
         <SpriteView sprite={spriteLeft} />
       </div>
       <div className="column is-4">
-        <TextView text={moment.text} />
-        <ChoiceView choices={moment.choices} />
+        <div className="box">
+          <TextView text={moment.text} />
+          <ChoiceView choices={moment.choices} />
+        </div>
       </div>
       <div className="column is-4">
         <SpriteView sprite={spriteRight} />

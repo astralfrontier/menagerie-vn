@@ -9,6 +9,8 @@ import {
 } from './scene-engine'
 import { HOODIE_GIRL, SCHOOLGIRL } from './sprite-engine'
 
+import AnimeSchoolBackground from './assets/147385-download-free-anime-school-background-2560x1440.jpg'
+
 const hoodieGirlIntroduction: Scene = sceneContext({ sprites: [HOODIE_GIRL] }, [
   dialogue(
     "Hi there. I'm Hoodie Girl. Click the button to continue.",
@@ -26,33 +28,46 @@ const hoodieGirlIntroduction: Scene = sceneContext({ sprites: [HOODIE_GIRL] }, [
   jump('conversation'),
 ])
 
-const conversation: Scene = [
-  ...sceneContext({ sprites: [HOODIE_GIRL, SCHOOLGIRL] }, [
-    dialogue('Now there are two of them!', '', SceneTextType.WORRIED),
-    dialogue('Hello there!', HOODIE_GIRL.name),
-    dialogue('Anyway, you can take over here', HOODIE_GIRL.name),
-  ]),
-  ...sceneContext({ sprites: [SCHOOLGIRL] }, [
-    dialogue('Goodbye hoodie girl', SCHOOLGIRL.name),
-    dialogue('I never liked her anyway', SCHOOLGIRL.name, SceneTextType.ANGRY),
-    choice('Who do you like more?', [
-      { label: HOODIE_GIRL.name, destination: 'hoodieGirlPreference' },
-      { label: SCHOOLGIRL.name, destination: 'schoolgirlPreference' },
+const conversation: Scene = sceneContext(
+  { background: AnimeSchoolBackground },
+  [
+    ...sceneContext({ sprites: [HOODIE_GIRL, SCHOOLGIRL] }, [
+      dialogue('Now there are two of them!', '', SceneTextType.WORRIED),
+      dialogue('Hello there!', HOODIE_GIRL.name),
+      dialogue('Anyway, you can take over here', HOODIE_GIRL.name),
     ]),
-  ]),
-]
+    ...sceneContext({ sprites: [SCHOOLGIRL] }, [
+      dialogue('Goodbye hoodie girl', SCHOOLGIRL.name),
+      dialogue(
+        'I never liked her anyway',
+        SCHOOLGIRL.name,
+        SceneTextType.ANGRY
+      ),
+      choice('Who do you like more?', [
+        { label: HOODIE_GIRL.name, destination: 'hoodieGirlPreference' },
+        { label: SCHOOLGIRL.name, destination: 'schoolgirlPreference' },
+      ]),
+    ]),
+  ]
+)
 
-const hoodieGirlPreference: Scene = sceneContext({ sprites: [HOODIE_GIRL] }, [
-  dialogue('Yaay I win', HOODIE_GIRL.name),
-  dialogue('Click to restart'),
-  jump('default'),
-])
+const hoodieGirlPreference: Scene = sceneContext(
+  { background: AnimeSchoolBackground, sprites: [HOODIE_GIRL] },
+  [
+    dialogue('Yaay I win', HOODIE_GIRL.name),
+    dialogue('Click to restart'),
+    jump('default'),
+  ]
+)
 
-const schoolgirlPreference: Scene = sceneContext({ sprites: [SCHOOLGIRL] }, [
-  dialogue('Hah, I knew it', SCHOOLGIRL.name),
-  dialogue('Click to restart'),
-  jump('default'),
-])
+const schoolgirlPreference: Scene = sceneContext(
+  { background: AnimeSchoolBackground, sprites: [SCHOOLGIRL] },
+  [
+    dialogue('Hah, I knew it', SCHOOLGIRL.name),
+    dialogue('Click to restart'),
+    jump('default'),
+  ]
+)
 
 const sceneTreeRecords: Record<SceneIdentifier, Scene> = {
   default: hoodieGirlIntroduction,
