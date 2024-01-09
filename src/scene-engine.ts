@@ -1,5 +1,3 @@
-import HoodieGirlImage from './assets/wp8198578.webp?url'
-import SchoolgirlImage from './assets/anime_girl_PNG88.png?url'
 import { map, mergeLeft } from 'ramda'
 
 export enum SceneMomentType {
@@ -38,9 +36,11 @@ export interface SceneText {
   position: SceneTextType
 }
 
+export type SceneIdentifier = string
+
 export interface SceneChoice {
   prompt: string
-  destination: string
+  destination: SceneIdentifier
 }
 
 export interface SceneMoment {
@@ -50,6 +50,7 @@ export interface SceneMoment {
   sprites: SceneSprite[]
   text: SceneText[]
   choices: SceneChoice[]
+  destination: SceneIdentifier
 }
 
 // A scene is just a series of moments
@@ -70,6 +71,7 @@ export function moment(props: Partial<SceneMoment>): SceneMoment {
     sprites: [],
     text: [],
     choices: [],
+    destination: '',
   })
 }
 
@@ -97,27 +99,9 @@ export function dialogue(
   })
 }
 
-const HOODIE_GIRL: SceneSprite = {
-  asset: HoodieGirlImage,
-  position: SceneSpritePosition.CHARACTER_LEFT,
+export function jump(destination: SceneIdentifier): SceneMoment {
+  return moment({
+    momentType: SceneMomentType.JUMP,
+    destination,
+  })
 }
-
-const ANIME_GIRL: SceneSprite = {
-  asset: SchoolgirlImage,
-  position: SceneSpritePosition.CHARACTER_RIGHT,
-}
-
-export const defaultScene: Scene = [
-  ...sceneContext({ sprites: [HOODIE_GIRL] }, [
-    dialogue('Hello there!', 'Hoodie Girl'),
-    dialogue('What can I say?', 'Hoodie Girl'),
-  ]),
-  ...sceneContext({ sprites: [HOODIE_GIRL, ANIME_GIRL] }, [
-    dialogue('Now there are two of them!', '', SceneTextType.WORRIED),
-  ]),
-  ...sceneContext({ sprites: [ANIME_GIRL] }, [
-    dialogue('Goodbye hoodie girl', 'Schoolgirl'),
-    dialogue('I never liked her anyway', 'Schoolgirl', SceneTextType.ANGRY),
-    dialogue('Clicking again will restart the scene'),
-  ]),
-]
