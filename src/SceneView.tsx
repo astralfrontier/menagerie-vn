@@ -1,39 +1,28 @@
-import { useState } from 'react'
-import { Scene, SceneIdentifier, SceneMomentType } from './scene-engine'
+import { observer } from 'mobx-react'
+import { useContext } from 'react'
+import { GameStateContext } from './App'
 import MomentView from './MomentView'
+import { Scene, SceneMomentType } from './scene-engine'
 
 interface SceneViewProps {
   scene: Scene
-  setSceneIdentifier: React.Dispatch<React.SetStateAction<string>>
 }
 
-export default function SceneView(props: SceneViewProps) {
-  const { scene, setSceneIdentifier } = props
+function SceneView(props: SceneViewProps) {
+  const gameState = useContext(GameStateContext)
 
-  const [sceneIndex, setSceneIndex] = useState<number>(0)
-
-  function jump(destination: SceneIdentifier) {
-    setSceneIdentifier(destination)
-    setSceneIndex(0)
-  }
-
-  function advance() {
-    let nextIndex = sceneIndex + 1
-    if (nextIndex == scene.length) {
-      nextIndex = 0
-    }
-    setSceneIndex(nextIndex)
-  }
-
-  const moment = scene[sceneIndex]
+  const { scene } = props
+  const moment = scene[gameState.sceneIndex]
 
   if (moment.momentType == SceneMomentType.JUMP) {
-    jump(moment.destination)
+    gameState.jump(moment.destination)
   } else {
     return (
       <div>
-        <MomentView moment={moment} jump={jump} advance={advance} />
+        <MomentView moment={moment} />
       </div>
     )
   }
 }
+
+export default observer(SceneView)

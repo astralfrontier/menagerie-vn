@@ -1,14 +1,16 @@
 import { map } from 'ramda'
-import { SceneChoice, SceneIdentifier } from './scene-engine'
+import { useContext } from 'react'
+import { GameStateContext } from './App'
+import { SceneChoice, jump } from './scene-engine'
 
 interface ChoiceViewProps {
   choices: SceneChoice[]
-  jump: (destination: SceneIdentifier) => void
-  advance: () => void
 }
 
 export default function ChoiceView(props: ChoiceViewProps) {
-  const { choices, jump, advance } = props
+  const gameState = useContext(GameStateContext)
+
+  const { choices } = props
 
   return choices.length > 0 ? (
     <aside className="menu">
@@ -16,7 +18,9 @@ export default function ChoiceView(props: ChoiceViewProps) {
         {map(
           (choice) => (
             <li>
-              <a onClick={() => jump(choice.destination)}>{choice.label}</a>
+              <a onClick={() => gameState.jump(choice.destination)}>
+                {choice.label}
+              </a>
             </li>
           ),
           choices
@@ -24,7 +28,7 @@ export default function ChoiceView(props: ChoiceViewProps) {
       </ul>
     </aside>
   ) : (
-    <a className="button is-primary" onClick={() => advance()}>
+    <a className="button is-primary" onClick={() => gameState.advance()}>
       Next
     </a>
   )
