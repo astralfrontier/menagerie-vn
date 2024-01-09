@@ -1,5 +1,6 @@
-import { makeAutoObservable } from 'mobx'
+import { makeObservable, action, observable } from 'mobx'
 import { SceneIdentifier } from './scene-engine'
+import { createContext } from 'react'
 
 /**
  * Game State covers things like which scene tree is active.
@@ -14,7 +15,12 @@ export class GameState {
   constructor() {
     this.sceneIdentifier = 'default'
     this.sceneIndex = 0
-    makeAutoObservable(this)
+    makeObservable(this, {
+      sceneIdentifier: observable,
+      sceneIndex: observable,
+      jump: action,
+      advance: action,
+    })
   }
 
   jump(destination: SceneIdentifier) {
@@ -29,5 +35,7 @@ export class GameState {
 }
 
 const gameState = new GameState()
+
+export const GameStateContext = createContext<GameState>(gameState)
 
 export { gameState }

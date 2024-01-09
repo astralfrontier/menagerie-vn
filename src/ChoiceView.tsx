@@ -1,6 +1,7 @@
 import { map } from 'ramda'
 import { useContext } from 'react'
-import { GameStateContext } from './App'
+import { GameStateContext } from './state'
+
 import { SceneChoice, jump } from './scene-engine'
 
 interface ChoiceViewProps {

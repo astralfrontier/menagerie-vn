@@ -1,8 +1,9 @@
 import { observer } from 'mobx-react'
 import { useContext, useState } from 'react'
-import { GameStateContext } from './App'
+
 import SceneView from './SceneView'
 import sceneTree from './scene-tree'
+import { GameStateContext } from './state'
 
 enum GameMode {
   TITLE, // The title screen
@@ -13,7 +14,7 @@ function GameView() {
   const gameState = useContext(GameStateContext)
   const [gameMode, setGameMode] = useState<GameMode>(GameMode.TITLE)
 
-  const defaultScene = sceneTree(gameState.sceneIdentifier)
+  const currentScene = sceneTree(gameState.sceneIdentifier)
 
   switch (gameMode) {
     case GameMode.TITLE:
@@ -31,7 +32,7 @@ function GameView() {
     case GameMode.SCENES:
       return (
         <div className="container">
-          <SceneView scene={defaultScene} />
+          <SceneView scene={currentScene} sceneIndex={gameState.sceneIndex} />
         </div>
       )
   }

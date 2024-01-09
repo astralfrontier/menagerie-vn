@@ -1,14 +1,11 @@
-import { createContext } from 'react'
 import './App.sass'
 import GameView from './GameView'
-import { GameState, gameState } from './state'
+import { GameStateContext, gameState } from './state'
 
 enum GameMode {
   TITLE, // The title screen
   SCENES, // Playing through game scenes
 }
-
-export const GameStateContext = createContext<GameState>(gameState)
 
 function App() {
   return (
