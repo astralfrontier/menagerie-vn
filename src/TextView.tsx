@@ -10,7 +10,7 @@ export default function TextView(props: TextViewProps) {
 
   return map(
     (t) => (
-      <article className={`message ${t.position}`}>
+      <article className={`message ${t.position}`} key={t.message}>
         {t.speaker && (
           <div className="message-header">
             <p>{t.speaker}</p>
