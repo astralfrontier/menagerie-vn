@@ -1,3 +1,6 @@
+import HoodieGirl from './assets/wp8198578.webp?url'
+import Schoolgirl from './assets/anime_girl_PNG88.png?url'
+
 // TODO: figure this out later
 export type SceneSprite = string | undefined
 
@@ -16,8 +19,6 @@ export interface SceneDialogueMoment {
 // A scene is just a series of moments
 export type Scene = SceneMoment[]
 
-const HOODIE_GIRL = '/wp8198578.webp'
-const SCHOOLGIRL = '/anime_girl_PNG88.png'
 const NOBODY = undefined
 
 function dialogue(
@@ -34,12 +35,12 @@ function dialogue(
 }
 
 export const defaultScene: Scene = [
-  dialogue('Hello There!', HOODIE_GIRL, NOBODY),
-  dialogue('More of the same', HOODIE_GIRL, NOBODY),
-  dialogue('Now there are two of them!', HOODIE_GIRL, SCHOOLGIRL),
+  dialogue('Hello There!', HoodieGirl, NOBODY),
+  dialogue('More of the same', HoodieGirl, NOBODY),
+  dialogue('Now there are two of them!', HoodieGirl, Schoolgirl),
   dialogue(
     'Clicking for more dialogue will restart the scene',
     NOBODY,
-    SCHOOLGIRL
+    Schoolgirl
   ),
 ]
