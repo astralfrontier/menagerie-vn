@@ -17,7 +17,7 @@ export default function ChoiceView(props: ChoiceViewProps) {
       <ul className="menu-list">
         {map(
           (choice) => (
-            <li>
+            <li key={choice.destination}>
               <a onClick={() => gameState.jump(choice.destination)}>
                 {choice.label}
               </a>
