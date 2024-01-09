@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { SceneMoment } from './scene-engine'
+import SpriteView from './SpriteView'
 
 interface MomentViewProps {
   moment: SceneMoment
@@ -12,7 +13,7 @@ export default function MomentView(props: MomentViewProps) {
   return (
     <div className="columns">
       <div className="column is-4">
-        {moment.left ? <img src={moment.left} /> : <></>}
+        <SpriteView sprite={moment.left} />
       </div>
       <div className="column is-4">
         <article className="message is-primary">
@@ -20,7 +21,7 @@ export default function MomentView(props: MomentViewProps) {
         </article>
       </div>
       <div className="column is-4">
-        {moment.right ? <img src={moment.right} /> : <></>}
+        <SpriteView sprite={moment.right} />
       </div>
     </div>
   )
