@@ -9,6 +9,7 @@ import {
   SceneTextType,
   SceneIdentifier,
   jump,
+  choice,
 } from './scene-engine'
 
 const HOODIE_GIRL: SceneSprite = {
@@ -23,7 +24,7 @@ const ANIME_GIRL: SceneSprite = {
 
 const hoodieGirlIntroduction: Scene = sceneContext({ sprites: [HOODIE_GIRL] }, [
   dialogue(
-    "Hi there. I'm Hoodie Girl. Click anywhere to continue.",
+    "Hi there. I'm Hoodie Girl. Click the button to continue.",
     'Hoodie Girl'
   ),
   dialogue("I'm here to introduce the basic concepts of the Menagerie VN."),
@@ -43,14 +44,30 @@ const conversationScene: Scene = [
   ...sceneContext({ sprites: [ANIME_GIRL] }, [
     dialogue('Goodbye hoodie girl', 'Schoolgirl'),
     dialogue('I never liked her anyway', 'Schoolgirl', SceneTextType.ANGRY),
-    dialogue('Clicking again will restart the game'),
+    choice('Who do you like more?', [
+      { label: 'Hoodie Girl', destination: 'hoodieGirlPreference' },
+      { label: 'Schoolgirl', destination: 'schoolgirlPreference' },
+    ]),
   ]),
-  jump('default'),
 ]
+
+const hoodieGirlPreference: Scene = sceneContext({ sprites: [HOODIE_GIRL] }, [
+  dialogue('Yaay I win'),
+  dialogue('Click to restart'),
+  jump('default'),
+])
+
+const schoolgirlPreference: Scene = sceneContext({ sprites: [ANIME_GIRL] }, [
+  dialogue('Hah, I knew it'),
+  dialogue('Click to restart'),
+  jump('default'),
+])
 
 const sceneTree: Record<SceneIdentifier, Scene> = {
   default: hoodieGirlIntroduction,
   conversation: conversationScene,
+  hoodieGirlPreference,
+  schoolgirlPreference,
 }
 
 export default sceneTree

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Scene, SceneMomentType } from './scene-engine'
+import { Scene, SceneIdentifier, SceneMomentType } from './scene-engine'
 import MomentView from './MomentView'
 
 interface SceneViewProps {
@@ -12,21 +12,28 @@ export default function SceneView(props: SceneViewProps) {
 
   const [sceneIndex, setSceneIndex] = useState<number>(0)
 
-  // If the scene overflows, restart as a final emergency
-  if (sceneIndex >= scene.length) {
+  function jump(destination: SceneIdentifier) {
+    setSceneIdentifier(destination)
     setSceneIndex(0)
-  } else {
-    const moment = scene[sceneIndex]
+  }
 
-    if (moment.momentType == SceneMomentType.JUMP) {
-      setSceneIndex(0)
-      setSceneIdentifier(moment.destination)
-    } else {
-      return (
-        <div onClick={() => setSceneIndex(sceneIndex + 1)}>
-          <MomentView moment={moment} />
-        </div>
-      )
+  function advance() {
+    let nextIndex = sceneIndex + 1
+    if (nextIndex == scene.length) {
+      nextIndex = 0
     }
+    setSceneIndex(nextIndex)
+  }
+
+  const moment = scene[sceneIndex]
+
+  if (moment.momentType == SceneMomentType.JUMP) {
+    jump(moment.destination)
+  } else {
+    return (
+      <div>
+        <MomentView moment={moment} jump={jump} advance={advance} />
+      </div>
+    )
   }
 }

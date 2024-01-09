@@ -1,7 +1,6 @@
 import { map, mergeLeft } from 'ramda'
 
 export enum SceneMomentType {
-  CUSTOM,
   DIALOGUE,
   CHOICE,
   JUMP,
@@ -39,7 +38,7 @@ export interface SceneText {
 export type SceneIdentifier = string
 
 export interface SceneChoice {
-  prompt: string
+  label: string
   destination: SceneIdentifier
 }
 
@@ -65,7 +64,7 @@ export type Scene = SceneMoment[]
  */
 export function moment(props: Partial<SceneMoment>): SceneMoment {
   return mergeLeft(props, {
-    momentType: SceneMomentType.CUSTOM,
+    momentType: SceneMomentType.DIALOGUE,
     background: undefined,
     soundtrack: undefined,
     sprites: [],
@@ -96,6 +95,14 @@ export function dialogue(
 ): SceneMoment {
   return moment({
     text: [{ message, speaker, position }],
+  })
+}
+
+export function choice(message: string, choices: SceneChoice[]): SceneMoment {
+  return moment({
+    momentType: SceneMomentType.CHOICE,
+    text: [{ message, speaker: '', position: SceneTextType.DEFAULT }],
+    choices,
   })
 }
 
