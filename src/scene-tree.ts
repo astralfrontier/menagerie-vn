@@ -54,11 +54,16 @@ const schoolgirlPreference: Scene = sceneContext({ sprites: [SCHOOLGIRL] }, [
   jump('default'),
 ])
 
-const sceneTree: Record<SceneIdentifier, Scene> = {
+const sceneTreeRecords: Record<SceneIdentifier, Scene> = {
   default: hoodieGirlIntroduction,
   conversation,
   hoodieGirlPreference,
   schoolgirlPreference,
+}
+
+// TODO: scene trees can be transformed based on game state
+function sceneTree(scene: SceneIdentifier) {
+  return sceneTreeRecords[scene]
 }
 
 export default sceneTree

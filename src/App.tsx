@@ -9,7 +9,7 @@ function App() {
   const [sceneIdentifier, setSceneIdentifier] =
     useState<SceneIdentifier>('default')
 
-  const defaultScene = sceneTree[sceneIdentifier]
+  const defaultScene = sceneTree(sceneIdentifier)
   return (
     <div className="container">
       <SceneView scene={defaultScene} setSceneIdentifier={setSceneIdentifier} />
