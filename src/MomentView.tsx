@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { SceneMoment, SceneSprite, SceneSpritePosition } from './scene-engine'
 import SpriteView from './SpriteView'
 import { find } from 'ramda'
+import TextView from './TextView'
 
 interface MomentViewProps {
   moment: SceneMoment
@@ -28,9 +29,7 @@ export default function MomentView(props: MomentViewProps) {
         <SpriteView sprite={spriteLeft} />
       </div>
       <div className="column is-4">
-        <article className="message is-primary">
-          <div className="message-body">{moment.text.join('\n')}</div>
-        </article>
+        <TextView text={moment.text} />
       </div>
       <div className="column is-4">
         <SpriteView sprite={spriteRight} />

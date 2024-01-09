@@ -25,8 +25,18 @@ export interface SceneSprite {
   position: SceneSpritePosition
 }
 
-// TODO: add positions later
-export type SceneText = string
+// Right now we're using the enum values as Bulma CSS classes
+export enum SceneTextType {
+  DEFAULT = 'is-primary',
+  WORRIED = 'is-warning',
+  ANGRY = 'is-danger',
+}
+
+export interface SceneText {
+  message: string
+  speaker: string
+  position: SceneTextType
+}
 
 export interface SceneChoice {
   prompt: string
@@ -69,7 +79,7 @@ export function moment(props: Partial<SceneMoment>): SceneMoment {
  * @param defaults default values for a scene
  * @param moments a series of moments
  */
-export function sceneDefaults(
+export function sceneContext(
   defaults: Partial<SceneMoment>,
   moments: SceneMoment[]
 ): SceneMoment[] {
@@ -77,10 +87,13 @@ export function sceneDefaults(
 }
 
 // Return a dialogue moment
-export function dialogue(text: string, sprites?: SceneSprite[]): SceneMoment {
+export function dialogue(
+  message: string,
+  speaker: string = '',
+  position: SceneTextType = SceneTextType.DEFAULT
+): SceneMoment {
   return moment({
-    text: [text],
-    sprites,
+    text: [{ message, speaker, position }],
   })
 }
 
@@ -95,8 +108,16 @@ const ANIME_GIRL: SceneSprite = {
 }
 
 export const defaultScene: Scene = [
-  dialogue('Hello There!', [HOODIE_GIRL]),
-  dialogue('More of the same', [HOODIE_GIRL]),
-  dialogue('Now there are two of them!', [HOODIE_GIRL, ANIME_GIRL]),
-  dialogue('Clicking for more dialogue will restart the scene', [ANIME_GIRL]),
+  ...sceneContext({ sprites: [HOODIE_GIRL] }, [
+    dialogue('Hello there!', 'Hoodie Girl'),
+    dialogue('What can I say?', 'Hoodie Girl'),
+  ]),
+  ...sceneContext({ sprites: [HOODIE_GIRL, ANIME_GIRL] }, [
+    dialogue('Now there are two of them!', '', SceneTextType.WORRIED),
+  ]),
+  ...sceneContext({ sprites: [ANIME_GIRL] }, [
+    dialogue('Goodbye hoodie girl', 'Schoolgirl'),
+    dialogue('I never liked her anyway', 'Schoolgirl', SceneTextType.ANGRY),
+    dialogue('Clicking again will restart the scene'),
+  ]),
 ]
