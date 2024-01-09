@@ -1,27 +1,39 @@
 import { useState } from 'react'
-import { SceneMoment } from './scene-engine'
+import { SceneMoment, SceneSprite, SceneSpritePosition } from './scene-engine'
 import SpriteView from './SpriteView'
+import { find } from 'ramda'
 
 interface MomentViewProps {
   moment: SceneMoment
+}
+
+// Return the first sprite found in a given position
+function spritesOnSide(
+  moment: SceneMoment,
+  position: SceneSpritePosition
+): SceneSprite | undefined {
+  return find((sprite) => sprite.position == position, moment.sprites)
 }
 
 // TODO: delegate to a subcomponent based on moment type
 export default function MomentView(props: MomentViewProps) {
   const { moment } = props
 
+  const spriteLeft = spritesOnSide(moment, SceneSpritePosition.CHARACTER_LEFT)
+  const spriteRight = spritesOnSide(moment, SceneSpritePosition.CHARACTER_RIGHT)
+
   return (
     <div className="columns">
       <div className="column is-4">
-        <SpriteView sprite={moment.left} />
+        <SpriteView sprite={spriteLeft} />
       </div>
       <div className="column is-4">
         <article className="message is-primary">
-          <div className="message-body">{moment.text}</div>
+          <div className="message-body">{moment.text.join('\n')}</div>
         </article>
       </div>
       <div className="column is-4">
-        <SpriteView sprite={moment.right} />
+        <SpriteView sprite={spriteRight} />
       </div>
     </div>
   )

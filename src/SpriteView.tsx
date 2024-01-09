@@ -3,15 +3,17 @@ import { SceneSprite } from './scene-engine'
 import classes from './sprite-view.module.css'
 
 interface SpriteViewProps {
-  sprite: SceneSprite
+  sprite: SceneSprite | undefined
 }
 
 export default function SpriteView(props: SpriteViewProps) {
   const { sprite } = props
 
-  return (
+  return sprite ? (
     <figure className="image">
-      {sprite ? <img src={sprite} className={classes.sprite} /> : <></>}
+      {sprite ? <img src={sprite.asset} className={classes.sprite} /> : <></>}
     </figure>
+  ) : (
+    <></>
   )
 }
