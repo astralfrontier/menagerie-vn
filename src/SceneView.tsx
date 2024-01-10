@@ -3,6 +3,8 @@ import MomentView from './MomentView'
 import { Scene, SceneMomentType } from './scene-engine'
 import { GameStateContext } from './state'
 
+import classes from './scene-view.module.css'
+
 interface SceneViewProps {
   scene: Scene
   sceneIndex: number
@@ -18,7 +20,11 @@ function SceneView(props: SceneViewProps) {
     gameState.jump(moment.destination)
     return <></>
   } else {
-    return <MomentView moment={moment} />
+    return (
+      <div className={classes.scene}>
+        <MomentView moment={moment} />
+      </div>
+    )
   }
 }
 

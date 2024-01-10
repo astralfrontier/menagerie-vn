@@ -34,8 +34,10 @@ export default function MomentView(props: MomentViewProps) {
       className={`columns is-gapless ${classes.backgroundImage}`}
       style={style}
     >
-      <div className="column is-4">
-        <SpriteView sprite={spriteLeft} />
+      <div className={`column is-4 ${classes.spriteContainer}`}>
+        <div className={classes.spriteWrapper}>
+          <SpriteView sprite={spriteLeft} />
+        </div>
       </div>
       <div className="column is-4">
         <div className="box">
@@ -43,8 +45,10 @@ export default function MomentView(props: MomentViewProps) {
           <ChoiceView choices={moment.choices} />
         </div>
       </div>
-      <div className="column is-4">
-        <SpriteView sprite={spriteRight} />
+      <div className={`column is-4 ${classes.spriteContainer}`}>
+        <div className={classes.spriteWrapper}>
+          <SpriteView sprite={spriteRight} />
+        </div>
       </div>
     </div>
   )

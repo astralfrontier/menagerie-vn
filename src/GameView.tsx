@@ -31,9 +31,7 @@ function GameView() {
       )
     case GameMode.SCENES:
       return (
-        <div className="container">
-          <SceneView scene={currentScene} sceneIndex={gameState.sceneIndex} />
-        </div>
+        <SceneView scene={currentScene} sceneIndex={gameState.sceneIndex} />
       )
   }
 }

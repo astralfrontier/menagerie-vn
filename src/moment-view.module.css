@@ -2,4 +2,15 @@
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  height: 100%;
+}
+
+.sprite-container {
+  display: flex;
+  height: 100%;
+}
+
+.sprite-wrapper {
+  display: inline-block;
+  align-self: flex-end;
 }
