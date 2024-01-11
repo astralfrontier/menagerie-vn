@@ -32,7 +32,7 @@ const conversation: Scene = sceneContext(
   { background: AnimeSchoolBackground },
   [
     ...sceneContext({ sprites: [HOODIE_GIRL, SCHOOLGIRL] }, [
-      dialogue('Now there are two of them!', '', SceneTextType.WORRIED),
+      dialogue('Now there are *two* of them!', '', SceneTextType.WORRIED),
       dialogue('Hello there!', HOODIE_GIRL.name),
       dialogue('Anyway, you can take over here', HOODIE_GIRL.name),
     ]),
