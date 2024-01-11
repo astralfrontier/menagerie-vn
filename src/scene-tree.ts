@@ -6,11 +6,20 @@ import {
   SceneIdentifier,
   jump,
   choice,
+  SceneSpritePosition,
 } from './scene-engine'
 import sprite from './sprite-engine'
 
-const HOODIE_GIRL = sprite('Hoodie Girl', 'default')
-const SCHOOLGIRL = sprite('Schoolgirl', 'default')
+const HOODIE_GIRL = sprite(
+  'Hoodie Girl',
+  'default',
+  SceneSpritePosition.CHARACTER_LEFT
+)
+const SCHOOLGIRL = sprite(
+  'Schoolgirl',
+  'default',
+  SceneSpritePosition.CHARACTER_RIGHT
+)
 
 import AnimeSchoolBackground from './assets/147385-download-free-anime-school-background-2560x1440.jpg'
 
