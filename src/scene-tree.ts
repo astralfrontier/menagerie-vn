@@ -7,7 +7,10 @@ import {
   jump,
   choice,
 } from './scene-engine'
-import { HOODIE_GIRL, SCHOOLGIRL } from './sprite-engine'
+import sprite from './sprite-engine'
+
+const HOODIE_GIRL = sprite('Hoodie Girl', 'default')
+const SCHOOLGIRL = sprite('Schoolgirl', 'default')
 
 import AnimeSchoolBackground from './assets/147385-download-free-anime-school-background-2560x1440.jpg'
 
