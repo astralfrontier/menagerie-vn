@@ -31,10 +31,6 @@ export default function ChoiceView(props: ChoiceViewProps) {
       </aside>
     </div>
   ) : (
-    <div className="box">
-      <a className="button is-primary" onClick={() => gameState.advance()}>
-        Next
-      </a>
-    </div>
+    <></>
   )
 }

@@ -19,9 +19,15 @@ function SceneView(props: SceneViewProps) {
   if (moment.momentType == SceneMomentType.JUMP) {
     gameState.jump(moment.destination)
     return <></>
-  } else {
+  } else if (moment.momentType == SceneMomentType.CHOICE) {
     return (
       <div className={classes.scene}>
+        <MomentView moment={moment} />
+      </div>
+    )
+  } else {
+    return (
+      <div className={classes.scene} onClick={() => gameState.advance()}>
         <MomentView moment={moment} />
       </div>
     )

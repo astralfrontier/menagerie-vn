@@ -16,7 +16,7 @@ import AnimeSchoolBackground from './assets/147385-download-free-anime-school-ba
 
 const hoodieGirlIntroduction: Scene = sceneContext({ sprites: [HOODIE_GIRL] }, [
   dialogue(
-    "Hi there. I'm Hoodie Girl. Click the button to continue.",
+    "Hi there. I'm Hoodie Girl. Click anywhere on the screen continue.",
     HOODIE_GIRL.name
   ),
   dialogue(
@@ -58,7 +58,7 @@ const hoodieGirlPreference: Scene = sceneContext(
   { background: AnimeSchoolBackground, sprites: [HOODIE_GIRL] },
   [
     dialogue('Yaay I win', HOODIE_GIRL.name),
-    dialogue('Click to restart'),
+    dialogue('Click anywhere to restart'),
     jump('default'),
   ]
 )
