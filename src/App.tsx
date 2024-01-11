@@ -1,5 +1,5 @@
 import './App.sass'
-import GameView from './GameView'
+import GamePage from './GamePage'
 import { GameStateContext, gameState } from './state'
 
 enum GameMode {
@@ -10,7 +10,7 @@ enum GameMode {
 function App() {
   return (
     <GameStateContext.Provider value={gameState}>
-      <GameView />
+      <GamePage />
     </GameStateContext.Provider>
   )
 }

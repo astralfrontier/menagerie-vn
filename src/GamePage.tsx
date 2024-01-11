@@ -4,13 +4,14 @@ import { useContext, useState } from 'react'
 import SceneView from './SceneView'
 import sceneTree from './scene-tree'
 import { GameStateContext } from './state'
+import SplashView from './SplashView'
 
 enum GameMode {
   TITLE, // The title screen
   SCENES, // Playing through game scenes
 }
 
-function GameView() {
+function GamePage() {
   const gameState = useContext(GameStateContext)
   const [gameMode, setGameMode] = useState<GameMode>(GameMode.TITLE)
 
@@ -19,15 +20,14 @@ function GameView() {
   switch (gameMode) {
     case GameMode.TITLE:
       return (
-        <div className="container">
-          <h1 className="title">Menagerie VN Demo</h1>
-          <a
-            className="button is-primary"
-            onClick={() => setGameMode(GameMode.SCENES)}
-          >
-            Start Playing
-          </a>
-        </div>
+        <SplashView
+          actions={[
+            {
+              label: 'New Game',
+              callback: () => setGameMode(GameMode.SCENES),
+            },
+          ]}
+        />
       )
     case GameMode.SCENES:
       return (
@@ -36,4 +36,4 @@ function GameView() {
   }
 }
 
-export default observer(GameView)
+export default observer(GamePage)
