@@ -1,6 +1,5 @@
-import HoodieGirlImage from './assets/wp8198578.webp?url'
-import SchoolgirlImage from './assets/anime_girl_PNG88.png?url'
 import { SceneSprite, SceneSpritePosition } from './scene-engine'
+import asset from './asset-engine'
 
 // This lets the sprite engine return additional arbitrary data about characters
 export type NamedSprite = SceneSprite & Record<string, string>
@@ -14,14 +13,14 @@ export default function sprite(
   switch (name) {
     case 'Hoodie Girl':
       return {
-        asset: HoodieGirlImage,
+        asset: asset('HoodieGirlDefault'),
         position,
         name,
         pose,
       }
     case 'Schoolgirl':
       return {
-        asset: SchoolgirlImage,
+        asset: asset('SchoolgirlDefault'),
         position,
         name,
         pose,
