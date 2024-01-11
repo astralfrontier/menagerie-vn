@@ -14,23 +14,27 @@ export default function ChoiceView(props: ChoiceViewProps) {
   const { choices } = props
 
   return choices.length > 0 ? (
-    <aside className="menu">
-      <ul className="menu-list">
-        {map(
-          (choice) => (
-            <li key={choice.destination}>
-              <a onClick={() => gameState.jump(choice.destination)}>
-                {choice.label}
-              </a>
-            </li>
-          ),
-          choices
-        )}
-      </ul>
-    </aside>
+    <div className="box">
+      <aside className="menu">
+        <ul className="menu-list">
+          {map(
+            (choice) => (
+              <li key={choice.destination}>
+                <a onClick={() => gameState.jump(choice.destination)}>
+                  {choice.label}
+                </a>
+              </li>
+            ),
+            choices
+          )}
+        </ul>
+      </aside>
+    </div>
   ) : (
-    <a className="button is-primary" onClick={() => gameState.advance()}>
-      Next
-    </a>
+    <div className="box">
+      <a className="button is-primary" onClick={() => gameState.advance()}>
+        Next
+      </a>
+    </div>
   )
 }

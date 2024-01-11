@@ -40,10 +40,8 @@ export default function MomentView(props: MomentViewProps) {
         </div>
       </div>
       <div className="column is-4">
-        <div className="box">
-          <TextView text={moment.text} />
-          <ChoiceView choices={moment.choices} />
-        </div>
+        <TextView text={moment.text} />
+        <ChoiceView choices={moment.choices} />
       </div>
       <div className={`column is-4 ${classes.spriteContainer}`}>
         <div className={classes.spriteWrapper}>
