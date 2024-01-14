@@ -2,7 +2,9 @@ import { map } from 'ramda'
 import { useContext } from 'react'
 import { GameStateContext } from './state'
 
-import { SceneChoice, jump } from './scene-engine'
+import { SceneChoice } from './scene-engine'
+
+import classes from './choice-view.module.css'
 
 interface ChoiceViewProps {
   choices: SceneChoice[]
@@ -17,20 +19,19 @@ export default function ChoiceView(props: ChoiceViewProps) {
     <div className="modal is-active">
       <div className="modal-content">
         <div className="box">
-          <aside className="menu">
-            <ul className="menu-list">
-              {map(
-                (choice) => (
-                  <li key={choice.destination}>
-                    <a onClick={() => gameState.jump(choice.destination)}>
-                      {choice.label}
-                    </a>
-                  </li>
-                ),
-                choices
-              )}
-            </ul>
-          </aside>
+          {map(
+            (choice) => (
+              <div className="m-2" key={choice.destination}>
+                <a
+                  className={`button is-link ${classes.choice}`}
+                  onClick={() => gameState.jump(choice.destination)}
+                >
+                  {choice.label}
+                </a>
+              </div>
+            ),
+            choices
+          )}
         </div>
       </div>
     </div>
