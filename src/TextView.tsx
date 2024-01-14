@@ -13,6 +13,8 @@ interface TextViewProps {
 export default function TextView(props: TextViewProps) {
   const { text } = props
 
+  console.dir(text)
+
   return map((t) => {
     let tailAngle = 135
     if (
@@ -22,7 +24,7 @@ export default function TextView(props: TextViewProps) {
       tailAngle = 45
     }
     return (
-      <>
+      <div>
         {t.speaker ? (
           <DialogueBubble
             text={render(t.message)}
@@ -33,7 +35,7 @@ export default function TextView(props: TextViewProps) {
         ) : (
           <NarrationBubble text={render(t.message)} width={400} height={300} />
         )}
-      </>
+      </div>
     )
   }, text)
 }

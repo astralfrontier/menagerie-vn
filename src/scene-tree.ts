@@ -8,6 +8,7 @@ import {
   jump,
   choice,
   SceneSpritePosition,
+  exchange,
 } from './scene-engine'
 import sprite from './sprite-engine'
 
@@ -53,21 +54,16 @@ const hoodieGirlIntroduction: Scene = sceneContext({ sprites: [HOODIE_GIRL] }, [
 
 const conversation: Scene = sceneContext({ background: CLASSROOM }, [
   ...sceneContext({ sprites: [HOODIE_GIRL, SCHOOLGIRL] }, [
-    dialogue(
-      ['Now there are', '*two* of them!'],
-      undefined,
-      SceneTextType.WORRIED
-    ),
+    dialogue(['Now there are', '*two* of them!'], undefined),
     dialogue(['Hello there!'], HOODIE_GIRL),
-    dialogue(['Anyway, you can', 'take over here'], HOODIE_GIRL),
+    exchange([
+      dialogue(['Anyway, you can', 'take over here'], HOODIE_GIRL),
+      dialogue(['Thanks'], SCHOOLGIRL),
+    ]),
   ]),
   ...sceneContext({ sprites: [SCHOOLGIRL] }, [
     dialogue(['Goodbye hoodie girl'], SCHOOLGIRL),
-    dialogue(
-      ['I never liked [her]{.vn-angry} anyway'],
-      SCHOOLGIRL,
-      SceneTextType.ANGRY
-    ),
+    dialogue(['I never liked [her]{.vn-angry} anyway'], SCHOOLGIRL),
     choice(
       ['Who do you like more?'],
       [

@@ -1,4 +1,4 @@
-import { map, mergeLeft } from 'ramda'
+import { concat, map, mergeLeft, reduce } from 'ramda'
 
 export enum SceneMomentType {
   DIALOGUE,
@@ -24,11 +24,9 @@ export interface SceneSprite {
 
 export type DataSprite = SceneSprite & Record<string, any>
 
-// Right now we're using the enum values as Bulma CSS classes
+// TODO: implement later on, once we have different types of speech bubbles
 export enum SceneTextType {
-  DEFAULT = 'is-primary',
-  WORRIED = 'is-warning',
-  ANGRY = 'is-danger',
+  DEFAULT,
 }
 
 export interface SceneText {
@@ -98,6 +96,21 @@ export function dialogue(
   return moment({
     text: [{ message: message.join('  \n'), speaker, position }],
   })
+}
+
+// Given multiple moments, concatenate their text blocks together
+// and return the first moment with modified text
+export function exchange(moments: SceneMoment[]): SceneMoment {
+  const firstMoment = moments[0]
+  const text = reduce(
+    (text, moment) => concat(text, moment.text),
+    [] as SceneText[],
+    moments
+  )
+  return {
+    ...firstMoment,
+    text,
+  }
 }
 
 export function choice(message: string[], choices: SceneChoice[]): SceneMoment {
