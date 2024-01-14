@@ -1,7 +1,7 @@
 import { map } from 'ramda'
 import { SceneSpritePosition, SceneText } from './scene-engine'
 import render from './markdown-engine'
-import SpeechBubble from './SpeechBubble'
+import DialogueBubble from './DialogueBubble'
 
 interface TextViewProps {
   text: SceneText[]
@@ -20,7 +20,7 @@ export default function TextView(props: TextViewProps) {
     }
     return (
       <>
-        <SpeechBubble
+        <DialogueBubble
           text={render(t.message)}
           width={400}
           height={300}

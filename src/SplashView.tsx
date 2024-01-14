@@ -1,7 +1,7 @@
 import { map } from 'ramda'
 
 import classes from './splash-view.module.css'
-import SpeechBubble from './SpeechBubble'
+import DialogueBubble from './DialogueBubble'
 
 export interface SplashScreenAction {
   label: string

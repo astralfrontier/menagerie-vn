@@ -1,6 +1,6 @@
 import classes from './speech-bubble.module.css'
 
-interface SpeechBubbleProps {
+interface DialogueBubbleProps {
   // The text (in HTML markup) to include
   text: string
   // Width of the container element in pixels
@@ -35,10 +35,7 @@ function ellipseCoordinates(
   return [x, y]
 }
 
-// TODO:
-// - Fill the tail
-
-function SpeechBubble(props: SpeechBubbleProps) {
+function DialogueBubble(props: DialogueBubbleProps) {
   const { text, width, height, tailAngle } = props
   const style = { width: `${width}px`, height: `${height}px` }
 
@@ -69,6 +66,12 @@ function SpeechBubble(props: SpeechBubbleProps) {
         height={style.height}
         xmlns="http://www.w3.org/2000/svg"
       >
+        <polygon
+          points={`${startx + width / 2},${starty + height / 2} ${corner[0]},${
+            corner[1]
+          } ${endx + width / 2},${endy + height / 2}`}
+          fill={FILL_STROKE.fill}
+        />
         <path
           {...FILL_STROKE}
           d={`M ${startx + width / 2},${starty + height / 2}
@@ -103,4 +106,4 @@ function SpeechBubble(props: SpeechBubbleProps) {
   )
 }
 
-export default SpeechBubble
+export default DialogueBubble
