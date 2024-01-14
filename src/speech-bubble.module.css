@@ -1,0 +1,10 @@
+.bubble {
+  border: thin solid red;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%
+}
