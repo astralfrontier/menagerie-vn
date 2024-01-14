@@ -40,8 +40,8 @@ const hoodieGirlIntroduction: Scene = sceneContext({ sprites: [HOODIE_GIRL] }, [
   dialogue(
     [
       "Right now it's ",
-      'pretty bare bones, but',
-      "it's functional Typescript",
+      'pretty bare bones,',
+      "but it's all Typescript",
       ' which makes the',
       'author happy.',
     ],

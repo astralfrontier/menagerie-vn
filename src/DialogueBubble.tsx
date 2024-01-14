@@ -1,4 +1,4 @@
-import classes from './dialogue-bubble.module.css'
+import classes from './speech-bubble.module.css'
 
 interface DialogueBubbleProps {
   // The text (in HTML markup) to include

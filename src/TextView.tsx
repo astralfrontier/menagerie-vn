@@ -2,6 +2,7 @@ import { map } from 'ramda'
 import { SceneSpritePosition, SceneText } from './scene-engine'
 import render from './markdown-engine'
 import DialogueBubble from './DialogueBubble'
+import NarrationBubble from './NarrationBubble'
 
 interface TextViewProps {
   text: SceneText[]
@@ -20,12 +21,16 @@ export default function TextView(props: TextViewProps) {
     }
     return (
       <>
-        <DialogueBubble
-          text={render(t.message)}
-          width={400}
-          height={300}
-          tailAngle={tailAngle}
-        />
+        {t.speaker ? (
+          <DialogueBubble
+            text={render(t.message)}
+            width={400}
+            height={300}
+            tailAngle={tailAngle}
+          />
+        ) : (
+          <NarrationBubble text={render(t.message)} width={400} height={300} />
+        )}
       </>
     )
   }, text)
