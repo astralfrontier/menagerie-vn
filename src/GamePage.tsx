@@ -5,7 +5,9 @@ import SceneView from './SceneView'
 import sceneTree from './scene-tree'
 import { GameStateContext } from './state'
 import SplashView from './SplashView'
-import DebugView from './DebugView'
+import DebugView from './debug/DebugView'
+
+import classes from './game-page.module.css'
 
 enum GameMode {
   TITLE, // The title screen
@@ -37,7 +39,9 @@ function GamePage() {
       )
     case GameMode.SCENES:
       return (
-        <SceneView scene={currentScene} sceneIndex={gameState.sceneIndex} />
+        <div className={classes.unselectable}>
+          <SceneView scene={currentScene} sceneIndex={gameState.sceneIndex} />
+        </div>
       )
     case GameMode.DEBUG:
       return <DebugView />

@@ -5,9 +5,7 @@ import { GameStateContext, gameState } from './state'
 function App() {
   return (
     <GameStateContext.Provider value={gameState}>
-      <div className="unselectable">
-        <GamePage />
-      </div>
+      <GamePage />
     </GameStateContext.Provider>
   )
 }
