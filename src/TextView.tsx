@@ -1,6 +1,7 @@
 import { map } from 'ramda'
-import { SceneText } from './scene-engine'
+import { SceneSpritePosition, SceneText } from './scene-engine'
 import render from './markdown-engine'
+import SpeechBubble from './SpeechBubble'
 
 interface TextViewProps {
   text: SceneText[]
@@ -9,18 +10,23 @@ interface TextViewProps {
 export default function TextView(props: TextViewProps) {
   const { text } = props
 
-  return map(
-    (t) => (
-      <div className="box">
-        {t.speaker && <h1 className="title">{t.speaker}</h1>}
-        <div className="content">
-          <p
-            className="komika"
-            dangerouslySetInnerHTML={{ __html: render(t.message) }}
-          ></p>
-        </div>
-      </div>
-    ),
-    text
-  )
+  return map((t) => {
+    let tailAngle = 135
+    if (
+      t.speaker &&
+      t.speaker.position == SceneSpritePosition.CHARACTER_RIGHT
+    ) {
+      tailAngle = 45
+    }
+    return (
+      <>
+        <SpeechBubble
+          text={render(t.message)}
+          width={400}
+          height={300}
+          tailAngle={tailAngle}
+        />
+      </>
+    )
+  }, text)
 }
