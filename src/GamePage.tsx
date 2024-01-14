@@ -8,10 +8,12 @@ import SplashView from './SplashView'
 import DebugView from './debug/DebugView'
 
 import classes from './game-page.module.css'
+import SettingsView from './SettingsView'
 
 enum GameMode {
   TITLE, // The title screen
   SCENES, // Playing through game scenes
+  SETTINGS, // The settings page
   DEBUG,
 }
 
@@ -31,6 +33,10 @@ function GamePage() {
               callback: () => setGameMode(GameMode.SCENES),
             },
             {
+              label: 'Settings',
+              callback: () => setGameMode(GameMode.SETTINGS),
+            },
+            {
               label: 'DEBUG',
               callback: () => setGameMode(GameMode.DEBUG),
             },
@@ -43,6 +49,8 @@ function GamePage() {
           <SceneView scene={currentScene} sceneIndex={gameState.sceneIndex} />
         </div>
       )
+    case GameMode.SETTINGS:
+      return <SettingsView />
     case GameMode.DEBUG:
       return <DebugView />
   }

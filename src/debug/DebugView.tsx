@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { allSceneTrees } from '../scene-tree'
 import DialogueTreeView from './DialogueTreeView'
 import { addIndex, map } from 'ramda'
+import GameStateView from './GameStateView'
 
 export default function DebugView() {
   const [activeTab, setActiveTab] = useState<number>(0)
@@ -12,6 +13,10 @@ export default function DebugView() {
       label: 'Dialogue Tree',
       component: <DialogueTreeView trees={trees} />,
     },
+    {
+      label: 'Game State',
+      component: <GameStateView />,
+    },
   ]
 
   return (
@@ -20,7 +25,7 @@ export default function DebugView() {
         <ul>
           {addIndex(map)(
             (item: any, idx: number) => (
-              <li>
+              <li className={idx == activeTab ? 'is-active' : ''}>
                 <a onClick={() => setActiveTab(idx)}>{item.label}</a>
               </li>
             ),
