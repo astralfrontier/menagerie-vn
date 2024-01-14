@@ -31,7 +31,7 @@ export default function MomentView(props: MomentViewProps) {
 
   return (
     <div
-      className={`columns is-gapless ${classes.backgroundImage}`}
+      className={`columns is-gapless is-centered ${classes.backgroundImage}`}
       style={style}
     >
       <div className={`column is-4 ${classes.spriteContainer}`}>
@@ -40,7 +40,9 @@ export default function MomentView(props: MomentViewProps) {
         </div>
       </div>
       <div className="column is-4">
-        <TextView text={moment.text} />
+        <div className={classes.centered}>
+          <TextView text={moment.text} />
+        </div>
         <ChoiceView choices={moment.choices} />
       </div>
       <div className={`column is-4 ${classes.spriteContainer}`}>

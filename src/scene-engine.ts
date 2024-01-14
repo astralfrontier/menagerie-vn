@@ -22,6 +22,8 @@ export interface SceneSprite {
   position: SceneSpritePosition
 }
 
+export type DataSprite = SceneSprite & Record<string, any>
+
 // Right now we're using the enum values as Bulma CSS classes
 export enum SceneTextType {
   DEFAULT = 'is-primary',
@@ -31,7 +33,7 @@ export enum SceneTextType {
 
 export interface SceneText {
   message: string
-  speaker: string
+  speaker: DataSprite | undefined
   position: SceneTextType
 }
 
@@ -89,19 +91,25 @@ export function sceneContext(
 
 // Return a dialogue moment
 export function dialogue(
-  message: string,
-  speaker: string = '',
+  message: string[],
+  speaker: DataSprite | undefined = undefined,
   position: SceneTextType = SceneTextType.DEFAULT
 ): SceneMoment {
   return moment({
-    text: [{ message, speaker, position }],
+    text: [{ message: message.join('  \n'), speaker, position }],
   })
 }
 
-export function choice(message: string, choices: SceneChoice[]): SceneMoment {
+export function choice(message: string[], choices: SceneChoice[]): SceneMoment {
   return moment({
     momentType: SceneMomentType.CHOICE,
-    text: [{ message, speaker: '', position: SceneTextType.DEFAULT }],
+    text: [
+      {
+        message: message.join('  \n'),
+        speaker: undefined,
+        position: SceneTextType.DEFAULT,
+      },
+    ],
     choices,
   })
 }

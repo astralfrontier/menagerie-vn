@@ -26,42 +26,59 @@ const CLASSROOM = asset('SchoolClassroomBackground')
 
 const hoodieGirlIntroduction: Scene = sceneContext({ sprites: [HOODIE_GIRL] }, [
   dialogue(
-    "Hi there. I'm Hoodie Girl. Click anywhere on the screen continue.",
-    HOODIE_GIRL.name
+    [
+      'Hi there.',
+      "I'm Hoodie Girl. Click anywhere on the screen",
+      'to continue.',
+    ],
+    HOODIE_GIRL
   ),
   dialogue(
-    "I'm here to introduce the basic concepts of the Menagerie VN.",
-    HOODIE_GIRL.name
+    ["I'm here to", 'introduce the basics of', 'the Menagerie VN.'],
+    HOODIE_GIRL
   ),
   dialogue(
-    "Right now it's pretty bare bones, but it's functional Typescript which makes the author happy.",
-    HOODIE_GIRL.name
+    [
+      "Right now it's ",
+      'pretty bare bones,',
+      "but it's all Typescript",
+      ' which makes the',
+      'author happy.',
+    ],
+    HOODIE_GIRL
   ),
-  dialogue('If you click again, it should jump you to another scene'),
+  dialogue(['If you click again,', 'it should jump you to', 'another scene']),
   jump('conversation'),
 ])
 
 const conversation: Scene = sceneContext({ background: CLASSROOM }, [
   ...sceneContext({ sprites: [HOODIE_GIRL, SCHOOLGIRL] }, [
-    dialogue('Now there are *two* of them!', '', SceneTextType.WORRIED),
-    dialogue('Hello there!', HOODIE_GIRL.name),
-    dialogue('Anyway, you can take over here', HOODIE_GIRL.name),
+    dialogue(
+      ['Now there are', '*two* of them!'],
+      undefined,
+      SceneTextType.WORRIED
+    ),
+    dialogue(['Hello there!'], HOODIE_GIRL),
+    dialogue(['Anyway, you can', 'take over here'], HOODIE_GIRL),
   ]),
   ...sceneContext({ sprites: [SCHOOLGIRL] }, [
-    dialogue('Goodbye hoodie girl', SCHOOLGIRL.name),
-    dialogue('I never liked her anyway', SCHOOLGIRL.name, SceneTextType.ANGRY),
-    choice('Who do you like more?', [
-      { label: HOODIE_GIRL.name, destination: 'hoodieGirlPreference' },
-      { label: SCHOOLGIRL.name, destination: 'schoolgirlPreference' },
-    ]),
+    dialogue(['Goodbye hoodie girl'], SCHOOLGIRL),
+    dialogue(['I never liked her anyway'], SCHOOLGIRL, SceneTextType.ANGRY),
+    choice(
+      ['Who do you like more?'],
+      [
+        { label: HOODIE_GIRL.name, destination: 'hoodieGirlPreference' },
+        { label: SCHOOLGIRL.name, destination: 'schoolgirlPreference' },
+      ]
+    ),
   ]),
 ])
 
 const hoodieGirlPreference: Scene = sceneContext(
   { background: CLASSROOM, sprites: [HOODIE_GIRL] },
   [
-    dialogue('Yaay I win', HOODIE_GIRL.name),
-    dialogue('Click anywhere to restart'),
+    dialogue(['Yaay I win'], HOODIE_GIRL),
+    dialogue(['Click anywhere', 'to restart']),
     jump('default'),
   ]
 )
@@ -69,8 +86,8 @@ const hoodieGirlPreference: Scene = sceneContext(
 const schoolgirlPreference: Scene = sceneContext(
   { background: CLASSROOM, sprites: [SCHOOLGIRL] },
   [
-    dialogue('Hah, I knew it', SCHOOLGIRL.name),
-    dialogue('Click to restart'),
+    dialogue(['Hah, I knew it'], SCHOOLGIRL),
+    dialogue(['Click anywhere', 'to restart']),
     jump('default'),
   ]
 )
