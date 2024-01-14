@@ -17,20 +17,19 @@ export default function SplashView(props: SplashViewProps) {
     <div className={classes.splash}>
       <div className="box has-text-centered">
         <h1 className="title">Menagerie VN Demo</h1>
-        <aside className="menu">
-          <ul className="menu-list">
-            {map(
-              (action) => (
-                <li key={action.label}>
-                  <a className="is-active" onClick={action.callback}>
-                    {action.label}
-                  </a>
-                </li>
-              ),
-              props.actions
-            )}
-          </ul>
-        </aside>
+        {map(
+          (action) => (
+            <div className="m-2" key={action.label}>
+              <a
+                className={`button is-link ${classes.choice}`}
+                onClick={action.callback}
+              >
+                {action.label}
+              </a>
+            </div>
+          ),
+          props.actions
+        )}
       </div>
     </div>
   )

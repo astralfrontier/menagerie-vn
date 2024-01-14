@@ -1,9 +1,9 @@
 import { concat, map, mergeLeft, reduce } from 'ramda'
 
 export enum SceneMomentType {
-  DIALOGUE,
-  CHOICE,
-  JUMP,
+  DIALOGUE = 'DIALOGUE',
+  CHOICE = 'CHOICE',
+  JUMP = 'JUMP',
 }
 
 // Right now this is a URL
@@ -13,8 +13,8 @@ export type SceneBackground = string | undefined
 export type SceneSoundtrack = string | undefined
 
 export enum SceneSpritePosition {
-  CHARACTER_LEFT = 'characterLeft',
-  CHARACTER_RIGHT = 'characterRight',
+  CHARACTER_LEFT = 'CHARACTER_LEFT',
+  CHARACTER_RIGHT = 'CHARACTER_RIGHT',
 }
 
 export interface SceneSprite {
@@ -26,7 +26,7 @@ export type DataSprite = SceneSprite & Record<string, any>
 
 // TODO: implement later on, once we have different types of speech bubbles
 export enum SceneTextType {
-  DEFAULT,
+  DEFAULT = 'DEFAULT',
 }
 
 export interface SceneText {

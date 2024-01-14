@@ -5,10 +5,12 @@ import SceneView from './SceneView'
 import sceneTree from './scene-tree'
 import { GameStateContext } from './state'
 import SplashView from './SplashView'
+import DebugView from './DebugView'
 
 enum GameMode {
   TITLE, // The title screen
   SCENES, // Playing through game scenes
+  DEBUG,
 }
 
 function GamePage() {
@@ -26,6 +28,10 @@ function GamePage() {
               label: 'New Game',
               callback: () => setGameMode(GameMode.SCENES),
             },
+            {
+              label: 'DEBUG',
+              callback: () => setGameMode(GameMode.DEBUG),
+            },
           ]}
         />
       )
@@ -33,6 +39,8 @@ function GamePage() {
       return (
         <SceneView scene={currentScene} sceneIndex={gameState.sceneIndex} />
       )
+    case GameMode.DEBUG:
+      return <DebugView />
   }
 }
 

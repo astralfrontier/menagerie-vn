@@ -101,7 +101,11 @@ const sceneTreeRecords: Record<SceneIdentifier, Scene> = {
 
 // TODO: scene trees can be transformed based on game state
 function sceneTree(scene: SceneIdentifier) {
-  return sceneTreeRecords[scene]
+  return sceneTreeRecords[scene] || sceneTreeRecords['default']
+}
+
+export function allSceneTrees() {
+  return sceneTreeRecords
 }
 
 export default sceneTree
