@@ -63,7 +63,11 @@ const conversation: Scene = sceneContext({ background: CLASSROOM }, [
   ]),
   ...sceneContext({ sprites: [SCHOOLGIRL] }, [
     dialogue(['Goodbye hoodie girl'], SCHOOLGIRL),
-    dialogue(['I never liked her anyway'], SCHOOLGIRL, SceneTextType.ANGRY),
+    dialogue(
+      ['I never liked [her]{.vn-angry} anyway'],
+      SCHOOLGIRL,
+      SceneTextType.ANGRY
+    ),
     choice(
       ['Who do you like more?'],
       [

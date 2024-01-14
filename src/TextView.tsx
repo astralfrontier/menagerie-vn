@@ -4,6 +4,8 @@ import render from './markdown-engine'
 import DialogueBubble from './DialogueBubble'
 import NarrationBubble from './NarrationBubble'
 
+import './TextView.sass'
+
 interface TextViewProps {
   text: SceneText[]
 }
