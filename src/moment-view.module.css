@@ -14,3 +14,12 @@
   display: inline-block;
   align-self: flex-end;
 }
+
+.centered {
+  display: flex;
+  margin-top: 15vh;
+  justify-content: center;
+  /* align-items: center; */
+  text-align: center;
+  font-size: 24px;
+}
