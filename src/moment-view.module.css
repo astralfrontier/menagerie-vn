@@ -40,6 +40,18 @@
   width: 33vw;
 }
 
+@media screen and (max-width: 767px) {
+  .character {
+    width: 50vw;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .character {
+    width: 33vw;
+  }
+}
+
 .characterleft {
   left: 0;
   bottom: 0;
