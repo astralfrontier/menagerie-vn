@@ -24,23 +24,21 @@ export default function TextView(props: TextViewProps) {
     } else {
       tailAngle = i > 0 ? 225 : 135
     }
-    return (
-      <>
-        {t.speaker ? (
-          <DialogueBubble
-            text={render(t.message)}
-            width={400}
-            height={height}
-            tailAngle={tailAngle}
-          />
-        ) : (
-          <NarrationBubble
-            text={render(t.message)}
-            width={400}
-            height={height}
-          />
-        )}
-      </>
+    return t.speaker ? (
+      <DialogueBubble
+        text={render(t.message)}
+        width={400}
+        height={height}
+        tailAngle={tailAngle}
+        key={t.message}
+      />
+    ) : (
+      <NarrationBubble
+        text={render(t.message)}
+        width={400}
+        height={height}
+        key={t.message}
+      />
     )
   })
 }

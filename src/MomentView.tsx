@@ -32,6 +32,7 @@ export default function MomentView(props: MomentViewProps) {
         return (
           <div
             className={`${classes.character} ${classes[characteralignment]}`}
+            key={sprite.asset}
           >
             <SpriteView sprite={sprite} />
           </div>
