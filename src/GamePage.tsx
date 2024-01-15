@@ -1,14 +1,11 @@
-import { observer } from 'mobx-react'
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 
 import SceneView from './SceneView'
-import sceneTree from './scene-tree'
-import { GameStateContext } from './state'
 import SplashView from './SplashView'
 import DebugView from './debug/DebugView'
 
-import classes from './game-page.module.css'
 import SettingsView from './SettingsView'
+import classes from './game-page.module.css'
 
 enum GameMode {
   TITLE, // The title screen
@@ -18,10 +15,7 @@ enum GameMode {
 }
 
 function GamePage() {
-  const gameState = useContext(GameStateContext)
   const [gameMode, setGameMode] = useState<GameMode>(GameMode.TITLE)
-
-  const currentScene = sceneTree(gameState.sceneIdentifier)
 
   switch (gameMode) {
     case GameMode.TITLE:
@@ -46,7 +40,7 @@ function GamePage() {
     case GameMode.SCENES:
       return (
         <div className={classes.unselectable}>
-          <SceneView scene={currentScene} sceneIndex={gameState.sceneIndex} />
+          <SceneView />
         </div>
       )
     case GameMode.SETTINGS:
@@ -56,4 +50,4 @@ function GamePage() {
   }
 }
 
-export default observer(GamePage)
+export default GamePage
