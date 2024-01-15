@@ -18,7 +18,7 @@ export default function ChoiceView(props: ChoiceViewProps) {
   return choices.length > 0 ? (
     <div className="modal is-active">
       <div className="modal-content">
-        <div className="box">
+        <div className={`box ${classes.choicebox}`}>
           {map(
             (choice) => (
               <div className="m-2" key={choice.destination}>
