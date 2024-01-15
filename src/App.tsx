@@ -1,11 +1,18 @@
 import './App.sass'
 import GamePage from './GamePage'
-import { GameStateContext, gameState } from './state'
+import {
+  GameStateContext,
+  gameState,
+  WorldStateContext,
+  worldState,
+} from './state'
 
 function App() {
   return (
     <GameStateContext.Provider value={gameState}>
-      <GamePage />
+      <WorldStateContext.Provider value={worldState}>
+        <GamePage />
+      </WorldStateContext.Provider>
     </GameStateContext.Provider>
   )
 }

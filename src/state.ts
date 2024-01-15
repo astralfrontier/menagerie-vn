@@ -1,4 +1,4 @@
-import { makeObservable, action, observable } from 'mobx'
+import { makeObservable, makeAutoObservable, action, observable } from 'mobx'
 import { SceneIdentifier } from './scene-engine'
 import { createContext } from 'react'
 
@@ -34,8 +34,16 @@ export class GameState {
   }
 }
 
+export class WorldState {
+  constructor() {
+    makeAutoObservable(this)
+  }
+}
+
 const gameState = new GameState()
+const worldState = new WorldState()
 
 export const GameStateContext = createContext<GameState>(gameState)
+export const WorldStateContext = createContext<WorldState>(worldState)
 
-export { gameState }
+export { gameState, worldState }
