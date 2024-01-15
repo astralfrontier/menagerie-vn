@@ -14,7 +14,7 @@ const PADDING = 5
 const FILL_STROKE = {
   fill: 'white',
   stroke: 'black',
-  'stroke-width': '5',
+  strokeWidth: '5',
 }
 
 /*
