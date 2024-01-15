@@ -1,4 +1,5 @@
 import { concat, map, mergeLeft, reduce } from 'ramda'
+import { GameState, WorldState } from './state'
 
 export enum SceneMomentType {
   DIALOGUE = 'DIALOGUE',
@@ -42,6 +43,12 @@ export interface SceneChoice {
   destination: SceneIdentifier
 }
 
+export type SceneScript = (
+  self: SceneMoment,
+  gameState: GameState,
+  worldState: WorldState
+) => SceneMoment
+
 export interface SceneMoment {
   momentType: SceneMomentType
   background: SceneBackground
@@ -50,12 +57,11 @@ export interface SceneMoment {
   text: SceneText[]
   choices: SceneChoice[]
   destination: SceneIdentifier
+  script: SceneScript | undefined
 }
 
 // A scene is just a series of moments
 export type Scene = SceneMoment[]
-
-// TODO: dictionary of all registered scenes
 
 /**
  * Return a fully populated moment based on some partial values
@@ -71,6 +77,7 @@ export function moment(props: Partial<SceneMoment>): SceneMoment {
     text: [],
     choices: [],
     destination: '',
+    script: undefined,
   })
 }
 

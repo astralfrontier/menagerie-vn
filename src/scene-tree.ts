@@ -49,6 +49,24 @@ const hoodieGirlIntroduction: Scene = sceneContext({ sprites: [HOODIE_GIRL] }, [
     HOODIE_GIRL
   ),
   dialogue(['If you click again,', 'it should jump you to', 'another scene']),
+  ...sceneContext(
+    {
+      script: (self, gameState, worldState) => {
+        console.dir({ gameState, worldState })
+        return {
+          ...self,
+          text: [
+            {
+              message: `Scripts can modify text`,
+              speaker: undefined,
+              position: SceneTextType.DEFAULT,
+            },
+          ],
+        }
+      },
+    },
+    [dialogue(['Running a script here'])]
+  ),
   jump('conversation'),
 ])
 
