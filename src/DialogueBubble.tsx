@@ -59,11 +59,13 @@ function DialogueBubble(props: DialogueBubbleProps) {
   }
 
   return (
-    <div className={classes.bubble} style={style}>
+    <div className={classes.bubble}>
       <svg
         id="svg1"
-        width={style.width}
-        height={style.height}
+        width="100%"
+        height="auto"
+        viewBox={`0 0 ${width} ${height}`}
+        preserveAspectRatio="xMidYMin meet"
         xmlns="http://www.w3.org/2000/svg"
       >
         <polygon

@@ -32,15 +32,14 @@ function NarrationBubble(props: NarrationBubbleProps) {
   const { text, width, height } = props
   const style = { width: `${width}px`, height: `${height}px` }
 
-  const radiusa = width / 2 - PADDING * 2
-  const radiusb = height / 2 - PADDING * 2
-
   return (
-    <div className={classes.bubble} style={style}>
+    <div className={classes.bubble}>
       <svg
         id="svg1"
-        width={style.width}
-        height={style.height}
+        width="100%"
+        height="auto"
+        viewBox={`0 0 ${width} ${height}`}
+        preserveAspectRatio="xMidYMin meet"
         xmlns="http://www.w3.org/2000/svg"
       >
         <rect

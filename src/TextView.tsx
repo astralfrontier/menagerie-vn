@@ -1,4 +1,3 @@
-import { map } from 'ramda'
 import { SceneSpritePosition, SceneText } from './scene-engine'
 import render from './markdown-engine'
 import DialogueBubble from './DialogueBubble'
@@ -13,29 +12,35 @@ interface TextViewProps {
 export default function TextView(props: TextViewProps) {
   const { text } = props
 
-  console.dir(text)
-
-  return map((t) => {
-    let tailAngle = 135
+  return text.map((t: SceneText, i: number) => {
+    const linesInMessage = t.message.split('\n').length
+    const height = 150 + 100 * Math.floor(linesInMessage / 2)
+    let tailAngle: number = 0
     if (
       t.speaker &&
       t.speaker.position == SceneSpritePosition.CHARACTER_RIGHT
     ) {
-      tailAngle = 45
+      tailAngle = i > 0 ? 315 : 45
+    } else {
+      tailAngle = i > 0 ? 225 : 135
     }
     return (
-      <div>
+      <>
         {t.speaker ? (
           <DialogueBubble
             text={render(t.message)}
             width={400}
-            height={300}
+            height={height}
             tailAngle={tailAngle}
           />
         ) : (
-          <NarrationBubble text={render(t.message)} width={400} height={300} />
+          <NarrationBubble
+            text={render(t.message)}
+            width={400}
+            height={height}
+          />
         )}
-      </div>
+      </>
     )
-  }, text)
+  })
 }
