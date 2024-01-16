@@ -105,6 +105,17 @@ export function dialogue(
   })
 }
 
+export function monologue(
+  message: string[],
+  speaker: DataSprite,
+  position: SceneTextType = SceneTextType.DEFAULT
+): SceneMoment {
+  return moment({
+    sprites: [speaker],
+    text: [{ message: message.join('  \n'), speaker, position }],
+  })
+}
+
 // Given multiple moments, concatenate their text blocks together
 // and return the first moment with modified text
 export function exchange(moments: SceneMoment[]): SceneMoment {
