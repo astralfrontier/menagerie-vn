@@ -49,13 +49,10 @@ const defaultScene: Scene = sceneContext({ background: CLASSROOM }, [
     SummerHandsBehindBack
   ),
   dialogue('See?', SummerDefault),
-  choice(
-    ['What do you want to learn more about?'],
-    [
-      { label: 'The technology', destination: 'tech' },
-      { label: 'The character sprites', destination: 'sprites' },
-    ]
-  ),
+  choice('What do you want to learn more about?', [
+    { label: 'The technology', destination: 'tech' },
+    { label: 'The character sprites', destination: 'sprites' },
+  ]),
 ])
 
 export default defaultScene

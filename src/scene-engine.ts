@@ -86,11 +86,11 @@ export class SceneMoment {
     return this
   }
 
-  choice(message: string[], choices: SceneChoice[]) {
+  choice(message: string, choices: SceneChoice[]) {
     this.momentType = SceneMomentType.CHOICE
     this.text = [
       {
-        message: message.join('  \n'),
+        message: message.replaceAll('|', '  \n'),
         speaker: undefined,
         position: SceneTextType.DEFAULT,
       },
@@ -109,6 +109,8 @@ export class SceneMoment {
 // A scene is just a series of moments
 export type Scene = SceneMoment[]
 
+export type SceneTree = Record<SceneIdentifier, Scene>
+
 // Given a set of scenes, enforce some default property values, e.g. soundtrack or background
 export function sceneContext(
   defaults: Partial<SceneMoment>,
@@ -125,7 +127,7 @@ export function dialogue(
   return new SceneMoment().dialogue(message, speaker, position)
 }
 
-export function choice(message: string[], choices: SceneChoice[]): SceneMoment {
+export function choice(message: string, choices: SceneChoice[]): SceneMoment {
   return new SceneMoment().choice(message, choices)
 }
 

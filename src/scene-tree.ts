@@ -1,10 +1,10 @@
-import { Scene, SceneIdentifier } from './scene-engine'
+import { SceneIdentifier, SceneTree } from './scene-engine'
 
 import defaultScene from './scenes/default'
 import techScene from './scenes/tech'
 import spritesScene from './scenes/sprites'
 
-const sceneTreeRecords: Record<SceneIdentifier, Scene> = {
+const sceneTreeRecords: SceneTree = {
   default: defaultScene,
   tech: techScene,
   sprites: spritesScene,
