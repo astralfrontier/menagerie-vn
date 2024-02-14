@@ -6,6 +6,7 @@ import {
   jump,
   SceneSpritePosition,
   DataSprite,
+  SceneTree,
 } from '../scene-engine'
 
 import SummerDefaultUrl from '../assets/SummerDefault.png?url'
@@ -58,4 +59,4 @@ const techScene: Scene = sceneContext({ background: CLASSROOM }, [
   jump('default'),
 ])
 
-export default techScene
+export default { tech: techScene } as SceneTree

@@ -6,6 +6,7 @@ import {
   choice,
   SceneSpritePosition,
   DataSprite,
+  SceneTree,
 } from '../scene-engine'
 
 import SummerDefaultUrl from '../assets/SummerDefault.png?url'
@@ -55,4 +56,4 @@ const defaultScene: Scene = sceneContext({ background: CLASSROOM }, [
   ]),
 ])
 
-export default defaultScene
+export default { default: defaultScene } as SceneTree

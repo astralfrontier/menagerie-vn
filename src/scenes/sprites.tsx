@@ -6,6 +6,7 @@ import {
   SceneSpritePosition,
   DataSprite,
   dialogue,
+  SceneTree,
 } from '../scene-engine'
 
 import SummerDefaultUrl from '../assets/SummerDefault.png?url'
@@ -54,4 +55,4 @@ const spritesScene: Scene = sceneContext({ background: CLASSROOM }, [
   jump('default'),
 ])
 
-export default spritesScene
+export default { sprites: spritesScene } as SceneTree
