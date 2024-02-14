@@ -59,7 +59,7 @@ export class SceneMoment {
   destination: SceneIdentifier
   script: SceneScript | undefined
 
-  constructor(props: Partial<SceneMoment>) {
+  constructor(props: Partial<SceneMoment> = {}) {
     this.momentType = defaultTo(SceneMomentType.DIALOGUE, props.momentType)
     this.background = props.background
     this.soundtrack = props.soundtrack
@@ -69,17 +69,47 @@ export class SceneMoment {
     this.destination = defaultTo('', props.destination)
     this.script = props.script
   }
+
+  dialogue(
+    message: string,
+    speaker: DataSprite | undefined = undefined,
+    position: SceneTextType = SceneTextType.DEFAULT
+  ) {
+    this.text.push({
+      message: message.replaceAll('|', '  \n'),
+      speaker,
+      position,
+    })
+    if (speaker && !this.sprites.includes(speaker)) {
+      this.sprites.push(speaker)
+    }
+    return this
+  }
+
+  choice(message: string[], choices: SceneChoice[]) {
+    this.momentType = SceneMomentType.CHOICE
+    this.text = [
+      {
+        message: message.join('  \n'),
+        speaker: undefined,
+        position: SceneTextType.DEFAULT,
+      },
+    ]
+    this.choices = choices
+    return this
+  }
+
+  jump(destination: SceneIdentifier) {
+    this.momentType = SceneMomentType.JUMP
+    this.destination = destination
+    return this
+  }
 }
 
 // A scene is just a series of moments
 export type Scene = SceneMoment[]
 
-/**
- * Given a set of default values, merge all the moments with those defaults and return the result
- *
- * @param defaults default values for a scene
- * @param moments a series of moments
- */
+// Given a set of scenes, enforce some default property values, e.g. soundtrack or background
 export function sceneContext(
   defaults: Partial<SceneMoment>,
   moments: SceneMoment[]
@@ -87,60 +117,18 @@ export function sceneContext(
   return map(mergeLeft(defaults), moments)
 }
 
-// Return a dialogue moment
 export function dialogue(
-  message: string[],
+  message: string,
   speaker: DataSprite | undefined = undefined,
   position: SceneTextType = SceneTextType.DEFAULT
 ): SceneMoment {
-  return new SceneMoment({
-    text: [{ message: message.join('  \n'), speaker, position }],
-  })
-}
-
-export function monologue(
-  message: string[],
-  speaker: DataSprite,
-  position: SceneTextType = SceneTextType.DEFAULT
-): SceneMoment {
-  return new SceneMoment({
-    sprites: [speaker],
-    text: [{ message: message.join('  \n'), speaker, position }],
-  })
-}
-
-// Given multiple moments, concatenate their text blocks together
-// and return the first moment with modified text
-export function exchange(moments: SceneMoment[]): SceneMoment {
-  const firstMoment = moments[0]
-  const text = reduce(
-    (text, moment) => concat(text, moment.text),
-    [] as SceneText[],
-    moments
-  )
-  return {
-    ...firstMoment,
-    text,
-  }
+  return new SceneMoment().dialogue(message, speaker, position)
 }
 
 export function choice(message: string[], choices: SceneChoice[]): SceneMoment {
-  return new SceneMoment({
-    momentType: SceneMomentType.CHOICE,
-    text: [
-      {
-        message: message.join('  \n'),
-        speaker: undefined,
-        position: SceneTextType.DEFAULT,
-      },
-    ],
-    choices,
-  })
+  return new SceneMoment().choice(message, choices)
 }
 
 export function jump(destination: SceneIdentifier): SceneMoment {
-  return new SceneMoment({
-    momentType: SceneMomentType.JUMP,
-    destination,
-  })
+  return new SceneMoment().jump(destination)
 }

@@ -3,14 +3,9 @@ import {
   Scene,
   sceneContext,
   dialogue,
-  SceneTextType,
-  SceneIdentifier,
-  jump,
   choice,
   SceneSpritePosition,
-  exchange,
   DataSprite,
-  monologue,
 } from '../scene-engine'
 
 import SummerDefaultUrl from '../assets/SummerDefault.png?url'
@@ -43,23 +38,17 @@ const SummerUwu: DataSprite = {
 const CLASSROOM = asset('SchoolClassroomBackground')
 
 const defaultScene: Scene = sceneContext({ background: CLASSROOM }, [
-  monologue(
-    ['Hi there!', 'My name is Summer Newman.', 'Click to go on'],
-    SummerTalking
-  ),
-  monologue(
-    ['This is a short', 'demo of a visual novel', 'with a custom engine'],
+  dialogue('Hi there!|My name is Summer Newman.|Click to go on', SummerTalking),
+  dialogue(
+    'This is a short|demo of a visual novel|with a custom engine',
     SummerHandOnHip
   ),
-  monologue(
-    ['It features choices,', 'speech bubbles, scripts', 'and more!'],
-    SummerUwu
-  ),
-  monologue(
-    ['Also, just for', 'this demo, I can teleport.', 'Watch'],
+  dialogue('It features choices,|speech bubbles, scripts|and more!', SummerUwu),
+  dialogue(
+    'Also, just for|this demo, I can teleport.|Watch',
     SummerHandsBehindBack
   ),
-  monologue(['See?'], SummerDefault),
+  dialogue('See?', SummerDefault),
   choice(
     ['What do you want to learn more about?'],
     [

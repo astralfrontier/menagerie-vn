@@ -2,15 +2,10 @@ import asset from '../asset-engine'
 import {
   Scene,
   sceneContext,
-  dialogue,
-  SceneTextType,
-  SceneIdentifier,
   jump,
-  choice,
   SceneSpritePosition,
-  exchange,
   DataSprite,
-  monologue,
+  dialogue,
 } from '../scene-engine'
 
 import SummerDefaultUrl from '../assets/SummerDefault.png?url'
@@ -43,19 +38,19 @@ const SummerUwu: DataSprite = {
 const CLASSROOM = asset('SchoolClassroomBackground')
 
 const spritesScene: Scene = sceneContext({ background: CLASSROOM }, [
-  monologue(
-    ['Sprites were created', 'using Manga Maker ComiPo', 'by the author'],
+  dialogue(
+    'Sprites were created|using Manga Maker ComiPo|by the author',
     SummerTalking
   ),
-  monologue(
-    ['The game had', 'a series of fun little comics', 'some years back'],
+  dialogue(
+    'The game had|a series of fun little|comics years ago',
     SummerTalking
   ),
-  monologue(
-    ['The sprites', 'originated there, and have', 'been reused for this'],
+  dialogue(
+    'The sprites|originated there, and have|been reused for this',
     SummerUwu
   ),
-  monologue(['Back to the start!'], SummerHandsBehindBack),
+  dialogue('Back to the start!', SummerHandsBehindBack),
   jump('default'),
 ])
 

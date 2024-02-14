@@ -3,14 +3,9 @@ import {
   Scene,
   sceneContext,
   dialogue,
-  SceneTextType,
-  SceneIdentifier,
   jump,
-  choice,
   SceneSpritePosition,
-  exchange,
   DataSprite,
-  monologue,
 } from '../scene-engine'
 
 import SummerDefaultUrl from '../assets/SummerDefault.png?url'
@@ -43,27 +38,23 @@ const SummerUwu: DataSprite = {
 const CLASSROOM = asset('SchoolClassroomBackground')
 
 const techScene: Scene = sceneContext({ background: CLASSROOM }, [
-  monologue(
-    ['This visual novel', 'engine is written using', 'React and Typescript'],
+  dialogue(
+    'This visual novel|engine is written using|React and Typescript',
     SummerTalking
   ),
-  monologue(
-    ['The author was', 'unhappy with other VNs', 'and wrote his own'],
+  dialogue(
+    'The author was|unhappy with other VNs|and wrote his own',
     SummerTalking
   ),
-  monologue(
-    [
-      'It might seem',
-      'like showing off, but sometimes you need',
-      'a custom system',
-    ],
+  dialogue(
+    'It might seem|like showing off, but sometimes you need|a custom system',
     SummerUwu
   ),
-  monologue(
-    ['The software', 'is deployed to Netlify', 'on every commit'],
+  dialogue(
+    'The software|is deployed to Netlify|on every commit',
     SummerHandsBehindBack
   ),
-  monologue(['Back to the start!'], SummerHandsBehindBack),
+  dialogue('Back to the start!', SummerHandsBehindBack),
   jump('default'),
 ])
 
