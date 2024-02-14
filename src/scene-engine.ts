@@ -1,4 +1,4 @@
-import { concat, map, mergeLeft, reduce } from 'ramda'
+import { concat, defaultTo, map, mergeLeft, reduce } from 'ramda'
 import { GameState, WorldState } from './state'
 
 export enum SceneMomentType {
@@ -49,7 +49,7 @@ export type SceneScript = (
   worldState: WorldState
 ) => SceneMoment
 
-export interface SceneMoment {
+export class SceneMoment {
   momentType: SceneMomentType
   background: SceneBackground
   soundtrack: SceneSoundtrack
@@ -58,28 +58,21 @@ export interface SceneMoment {
   choices: SceneChoice[]
   destination: SceneIdentifier
   script: SceneScript | undefined
+
+  constructor(props: Partial<SceneMoment>) {
+    this.momentType = defaultTo(SceneMomentType.DIALOGUE, props.momentType)
+    this.background = props.background
+    this.soundtrack = props.soundtrack
+    this.sprites = defaultTo([], props.sprites)
+    this.text = defaultTo([], props.text)
+    this.choices = defaultTo([], props.choices)
+    this.destination = defaultTo('', props.destination)
+    this.script = props.script
+  }
 }
 
 // A scene is just a series of moments
 export type Scene = SceneMoment[]
-
-/**
- * Return a fully populated moment based on some partial values
- * @param props
- * @returns
- */
-export function moment(props: Partial<SceneMoment>): SceneMoment {
-  return mergeLeft(props, {
-    momentType: SceneMomentType.DIALOGUE,
-    background: undefined,
-    soundtrack: undefined,
-    sprites: [],
-    text: [],
-    choices: [],
-    destination: '',
-    script: undefined,
-  })
-}
 
 /**
  * Given a set of default values, merge all the moments with those defaults and return the result
@@ -100,7 +93,7 @@ export function dialogue(
   speaker: DataSprite | undefined = undefined,
   position: SceneTextType = SceneTextType.DEFAULT
 ): SceneMoment {
-  return moment({
+  return new SceneMoment({
     text: [{ message: message.join('  \n'), speaker, position }],
   })
 }
@@ -110,7 +103,7 @@ export function monologue(
   speaker: DataSprite,
   position: SceneTextType = SceneTextType.DEFAULT
 ): SceneMoment {
-  return moment({
+  return new SceneMoment({
     sprites: [speaker],
     text: [{ message: message.join('  \n'), speaker, position }],
   })
@@ -132,7 +125,7 @@ export function exchange(moments: SceneMoment[]): SceneMoment {
 }
 
 export function choice(message: string[], choices: SceneChoice[]): SceneMoment {
-  return moment({
+  return new SceneMoment({
     momentType: SceneMomentType.CHOICE,
     text: [
       {
@@ -146,7 +139,7 @@ export function choice(message: string[], choices: SceneChoice[]): SceneMoment {
 }
 
 export function jump(destination: SceneIdentifier): SceneMoment {
-  return moment({
+  return new SceneMoment({
     momentType: SceneMomentType.JUMP,
     destination,
   })
