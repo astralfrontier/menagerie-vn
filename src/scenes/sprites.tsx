@@ -7,6 +7,7 @@ import {
   DataSprite,
   dialogue,
   SceneTree,
+  choice,
 } from '../scene-engine'
 
 import SummerDefaultUrl from '../assets/SummerDefault.png?url'
@@ -51,8 +52,30 @@ const spritesScene: Scene = sceneContext({ background: CLASSROOM }, [
     'The sprites|originated there, and have|been reused for this',
     SummerUwu
   ),
-  dialogue('Back to the start!', SummerHandsBehindBack),
+  choice('Do you enjoy the sprites?', [
+    { label: 'Yes!', destination: 'sprites.yes' },
+    { label: 'No!', destination: 'sprites.no' },
+  ]),
+])
+
+const yesScene: Scene = sceneContext({ background: CLASSROOM }, [
+  dialogue('Yaay!', SummerTalking),
+  jump('sprites.continue'),
+])
+
+const noScene: Scene = sceneContext({ background: CLASSROOM }, [
+  dialogue('Boo!', SummerTalking),
+  jump('sprites.continue'),
+])
+
+const continueScene: Scene = sceneContext({ background: CLASSROOM }, [
+  dialogue('Back to the start!', SummerTalking),
   jump('default'),
 ])
 
-export default { sprites: spritesScene } as SceneTree
+export default {
+  sprites: spritesScene,
+  'sprites.yes': yesScene,
+  'sprites.no': noScene,
+  'sprites.continue': continueScene,
+} as SceneTree
