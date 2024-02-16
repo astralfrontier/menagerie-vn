@@ -49,7 +49,7 @@ export type SceneScript = (
   worldState: WorldState
 ) => SceneMoment
 
-export class SceneMoment {
+export interface SceneMoment {
   momentType: SceneMomentType
   background: SceneBackground
   soundtrack: SceneSoundtrack
@@ -58,52 +58,19 @@ export class SceneMoment {
   choices: SceneChoice[]
   destination: SceneIdentifier
   script: SceneScript | undefined
+}
 
-  constructor(props: Partial<SceneMoment> = {}) {
-    this.momentType = defaultTo(SceneMomentType.DIALOGUE, props.momentType)
-    this.background = props.background
-    this.soundtrack = props.soundtrack
-    this.sprites = defaultTo([], props.sprites)
-    this.text = defaultTo([], props.text)
-    this.choices = defaultTo([], props.choices)
-    this.destination = defaultTo('', props.destination)
-    this.script = props.script
-  }
-
-  dialogue(
-    message: string,
-    speaker: DataSprite | undefined = undefined,
-    position: SceneTextType = SceneTextType.DEFAULT
-  ) {
-    this.text.push({
-      message: message.replaceAll('|', '  \n'),
-      speaker,
-      position,
-    })
-    if (speaker && !this.sprites.includes(speaker)) {
-      this.sprites.push(speaker)
-    }
-    return this
-  }
-
-  choice(message: string, choices: SceneChoice[]) {
-    this.momentType = SceneMomentType.CHOICE
-    this.text = [
-      {
-        message: message.replaceAll('|', '  \n'),
-        speaker: undefined,
-        position: SceneTextType.DEFAULT,
-      },
-    ]
-    this.choices = choices
-    return this
-  }
-
-  jump(destination: SceneIdentifier) {
-    this.momentType = SceneMomentType.JUMP
-    this.destination = destination
-    return this
-  }
+export function moment(props: Partial<SceneMoment>): SceneMoment {
+  return mergeLeft(props, {
+    momentType: SceneMomentType.DIALOGUE,
+    background: undefined,
+    soundtrack: undefined,
+    sprites: [],
+    text: [],
+    choices: [],
+    destination: '',
+    script: undefined,
+  })
 }
 
 // A scene is just a series of moments
@@ -124,13 +91,35 @@ export function dialogue(
   speaker: DataSprite | undefined = undefined,
   position: SceneTextType = SceneTextType.DEFAULT
 ): SceneMoment {
-  return new SceneMoment().dialogue(message, speaker, position)
+  return moment({
+    sprites: speaker ? [speaker] : [],
+    text: [
+      {
+        message: message.replaceAll('|', '  \n'),
+        speaker,
+        position,
+      },
+    ],
+  })
 }
 
 export function choice(message: string, choices: SceneChoice[]): SceneMoment {
-  return new SceneMoment().choice(message, choices)
+  return moment({
+    momentType: SceneMomentType.CHOICE,
+    text: [
+      {
+        message: message.replaceAll('|', '  \n'),
+        speaker: undefined,
+        position: SceneTextType.DEFAULT,
+      },
+    ],
+    choices,
+  })
 }
 
 export function jump(destination: SceneIdentifier): SceneMoment {
-  return new SceneMoment().jump(destination)
+  return moment({
+    momentType: SceneMomentType.JUMP,
+    destination,
+  })
 }
