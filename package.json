@@ -33,7 +33,7 @@
     "@types/react": "^18.2.58",
     "@types/react-dom": "^18.2.19",
     "@vitejs/plugin-react-swc": "^3.6.0",
-    "cypress": "^13.6.4",
+    "cypress": "^13.6.6",
     "netlify-cli": "^17.17.0",
     "prettier": "^3.2.5",
     "sass": "^1.70.0",
