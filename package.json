@@ -36,7 +36,7 @@
     "cypress": "^13.6.6",
     "netlify-cli": "^17.17.0",
     "prettier": "^3.2.5",
-    "sass": "^1.70.0",
+    "sass": "^1.71.1",
     "typescript": "^5.3.3",
     "vite": "^5.1.1"
   }
